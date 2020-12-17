@@ -1,8 +1,9 @@
-package com.android.appwebserver
+package com.trantor.appwebserver
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.trantor.appwebserver.R
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.StringRequestListener
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -108,16 +109,16 @@ class MainActivity : AppCompatActivity() {
     fun callDeleteApi() {
         val url = deviceBaseUrl + "/delete"
         var job: Disposable? = null
-        job = Rx2AndroidNetworking.post(url)
+        job = Rx2AndroidNetworking.delete(url)
             .build()
             .getObjectObservable(JSONObject::class.java)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ status ->
-                tvPostApiResponse.text = status.getString("response")
+                tvDeleteApiResponse.text = status.getString("response")
                 job?.dispose()
             }, { erorr ->
-                Log.w(TAG, "Post $url failed: $erorr")
+                Log.w(TAG, "Delete $url failed: $erorr")
                 job?.dispose()
             })
     }

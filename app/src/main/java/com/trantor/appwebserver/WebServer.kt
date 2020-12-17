@@ -1,4 +1,4 @@
-package com.android.appwebserver
+package com.trantor.appwebserver
 
 import android.util.Log
 import io.ktor.application.call
@@ -42,7 +42,6 @@ object WebServer {
             get("/status") {
                 // Stopped saving cache on client end
                 call.response.cacheControl(CacheControl.NoCache(null))
-                //
                 call.respond(JSONObject().put("status", "Server is running"))
             }
 
